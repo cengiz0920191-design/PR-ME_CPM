@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050914">
+<meta name="description" content="PRIME_CPM — otomobil editleri, sinematik araç galerisi ve sosyal bağlantılar.">
+<title>PRIME_CPM | Car Edit Studio</title>
+<style>
+:root{--bg:#050914;--panel:#0b1425;--blue:#18bfff;--blue2:#0877ff;--text:#edf7ff;--muted:#92a8c4;--line:rgba(65,177,255,.2)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse at 80% 0%,#09264a 0%,transparent 36%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit}
+.wrap{width:min(1120px,calc(100% - 36px));margin:auto}
+header{position:sticky;top:0;z-index:20;background:rgba(5,9,20,.82);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-weight:950;letter-spacing:1.5px;font-size:1.18rem}.logo span{color:var(--blue);text-shadow:0 0 18px #18bfff99}
+nav{display:flex;align-items:center;gap:24px;color:var(--muted);font-size:.92rem}nav a:hover{color:var(--blue)}
+.menu{display:none;border:1px solid var(--line);background:var(--panel);color:white;border-radius:10px;padding:8px 12px}
+.hero{min-height:590px;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:30px;padding:64px 0 72px}
+.kicker{display:inline-flex;gap:9px;align-items:center;color:var(--blue);font-weight:800;letter-spacing:2px;font-size:.75rem;text-transform:uppercase}
+.dot{width:7px;height:7px;background:var(--blue);border-radius:50%;box-shadow:0 0 14px var(--blue)}
+h1{font-size:clamp(3rem,7vw,5.7rem);line-height:.98;letter-spacing:-3px;margin:20px 0}
+h1 span{color:var(--blue);text-shadow:0 0 35px #18bfff40}
+.lead{max-width:530px;color:var(--muted);font-size:1.08rem}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:12px;padding:12px 18px;font-weight:800;border:1px solid var(--line);transition:.2s;cursor:pointer}
+.btn-primary{background:linear-gradient(115deg,var(--blue2),var(--blue));color:#03101e;border:0;box-shadow:0 8px 28px #0877ff35}
+.btn-secondary{background:#0b1425}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.1)}
+.hero-art{position:relative;min-height:360px;display:grid;place-items:center;overflow:hidden;border:1px solid var(--line);border-radius:26px;background:linear-gradient(145deg,#0c1d35,#060b17 70%);box-shadow:0 25px 80px #0008}
+.hero-art:before,.hero-art:after{content:"";position:absolute;border:1px solid #18bfff33;border-radius:50%;width:330px;height:330px}
+.hero-art:after{width:430px;height:430px}
+.car-emoji{font-size:clamp(8rem,20vw,13rem);filter:drop-shadow(0 10px 24px #18bfff40);transform:rotate(-8deg);z-index:1}
+.art-label{position:absolute;left:22px;bottom:18px;color:#8ebce0;font-size:.72rem;letter-spacing:2px}
+.art-tag{position:absolute;right:18px;top:18px;border:1px solid var(--line);background:#07101dcc;border-radius:9px;padding:7px 10px;font-size:.72rem;color:var(--blue);font-weight:800}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:-20px;position:relative}
+.stat{background:rgba(11,20,37,.9);border:1px solid var(--line);border-radius:15px;padding:18px;text-align:center}
+.stat strong{display:block;font-size:1.4rem;color:var(--blue)}.stat span{font-size:.8rem;color:var(--muted)}
+section{padding:82px 0}
+.section-top{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:28px}
+h2{font-size:clamp(1.8rem,4vw,2.7rem);letter-spacing:-1px;margin:8px 0}
+.sub{color:var(--muted);max-width:570px;margin:0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{border:1px solid var(--line);background:linear-gradient(150deg,#0c182b,#080e1b);border-radius:18px;overflow:hidden;transition:.25s}
+.card:hover{transform:translateY(-5px);border-color:#18bfff88;box-shadow:0 18px 40px #0004}
+.thumb{height:185px;display:grid;place-items:center;position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 100%,#0e5a8a66,transparent 55%),linear-gradient(135deg,#101f37,#070b15)}
+.thumb:before{content:"";position:absolute;width:220px;height:220px;border:1px solid #18bfff35;border-radius:50%}
+.thumb .vehicle{font-size:5.6rem;filter:drop-shadow(0 8px 15px #18bfff40);z-index:1}
+.pill{position:absolute;left:14px;top:14px;background:#06101ddd;color:var(--blue);border:1px solid var(--line);padding:5px 9px;border-radius:99px;font-size:.7rem;font-weight:800}
+.card-body{padding:18px}.card-body h3{margin:0 0 5px}.card-body p{margin:0;color:var(--muted);font-size:.9rem}
+.card-actions{display:flex;gap:10px;margin-top:15px;flex-wrap:wrap}
+.small-btn{border:1px solid var(--line);background:#0b1b30;color:#dff5ff;border-radius:9px;padding:8px 11px;font-size:.8rem;font-weight:750;cursor:pointer}
+.small-btn:hover{border-color:var(--blue);color:var(--blue)}
+.gallery-note{font-size:.82rem;color:var(--muted);margin-top:14px}
+.feature-band{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.feature{padding:24px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,#0c1b30,#080e19)}
+.feature-icon{font-size:1.7rem}.feature h3{margin:8px 0}.feature p{color:var(--muted);margin:0}
+.social-panel{display:flex;align-items:center;justify-content:space-between;gap:22px;padding:30px;border:1px solid #18bfff4d;border-radius:22px;background:linear-gradient(110deg,#0c2340,#0a1222 65%)}
+.social-panel p{color:var(--muted);margin:5px 0 0}.social-links{display:flex;gap:10px;flex-wrap:wrap}
+footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-size:.85rem}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#0b2034;border:1px solid #18bfff88;border-radius:12px;padding:12px 18px;z-index:50;transition:.25s;box-shadow:0 10px 35px #0008}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:760px){.hero{grid-template-columns:1fr;padding:48px 0 55px;min-height:auto}.hero-art{min-height:290px}.stats{margin-top:0}.grid{grid-template-columns:1fr 1fr}.section-top{align-items:start;flex-direction:column}nav{display:none;position:absolute;top:72px;left:0;right:0;background:#070d1b;padding:18px 24px;border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start;gap:15px}nav.open{display:flex}.menu{display:block}.social-panel{align-items:flex-start;flex-direction:column}}
+@media(max-width:480px){.wrap{width:min(100% - 26px,1120px)}h1{letter-spacing:-2px}.grid,.feature-band{grid-template-columns:1fr}.thumb{height:170px}.stat{padding:13px 7px}.stat strong{font-size:1.2rem}.stat span{font-size:.72rem}.social-panel{padding:22px}section{padding:62px 0}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#anasayfa" aria-label="PRIME CPM ana sayfa">PRIME<span>_CPM</span></a>
+    <nav id="navLinks" aria-label="Ana menü">
+      <a href="#anasayfa">Ana Sayfa</a><a href="#editler">Editler</a><a href="#ozellikler">Özellikler</a><a href="#sosyal">Sosyal Medya</a>
+    </nav>
+    <button class="menu" id="menuBtn" aria-label="Menüyü aç" aria-expanded="false">☰ Menü</button>
+  </div>
+</header>
+<main>
+  <section class="wrap hero" id="anasayfa">
+    <div>
+      <div class="kicker"><span class="dot"></span> AUTOMOTIVE • EDIT CULTURE</div>
+      <h1>GÜCÜ<br>HİSSET.<br><span>İZ BIRAK.</span></h1>
+      <p class="lead">PRIME_CPM dünyasına hoş geldin. Keskin geçişler, sinematik otomobiller ve geceyi aydınlatan mavi neon atmosferi.</p>
+      <div class="actions"><a class="btn btn-primary" href="#editler">▶ Editleri Keşfet</a><a class="btn btn-secondary" href="#sosyal">↗ Beni Takip Et</a></div>
+    </div>
+    <div class="hero-art" aria-label="Araba temalı neon tasarım">
+      <span class="art-tag">PRIME GARAGE / 001</span>
+      <div class="car-emoji" aria-hidden="true">🏎️</div>
+      <span class="art-label">NIGHT DRIVE // FULL SEND</span>
+    </div>
+  </section>
+  <div class="wrap stats" aria-label="Site özellikleri">
+    <div class="stat"><strong>4K</strong><span>Keskin Görüntü Hissi</span></div>
+    <div class="stat"><strong>NEON</strong><span>Mavi Gece Teması</span></div>
+    <div class="stat"><strong>CPM</strong><span>Otomobil Tutkusu</span></div>
+  </div>
+  <section class="wrap" id="editler">
+    <div class="section-top"><div><div class="kicker">SEÇİLMİŞ İÇERİKLER</div><h2>Garajdan Kareler</h2><p class="sub">Favori tarzını seç, videolarını ve fotoğraflarını bu alanda sergile. Örnek kartları kendi içeriklerinle güncelleyebilirsin.</p></div><a class="btn btn-secondary" href="#sosyal">Sosyal bağlantılar ↗</a></div>
+    <div class="grid">
+      <article class="card"><div class="thumb"><span class="pill">M SPORT</span><span class="vehicle" aria-hidden="true">🚘</span></div><div class="card-body"><h3>Midnight Blue</h3><p>Koyu tonlar ve mavi neon ışıklarla gece sürüşü havası.</p><div class="card-actions"><button class="small-btn copy-title" data-title="Midnight Blue">Başlığı Kopyala</button><a class="small-btn" href="#sosyal">Paylaşım alanı</a></div></div></article>
+      <article class="card"><div class="thumb"><span class="pill">STREET STYLE</span><span class="vehicle" aria-hidden="true">🏎️</span></div><div class="card-body"><h3>Street Motion</h3><p>Hızlı kesmeler, ritme oturan geçişler ve dinamik görünüm.</p><div class="card-actions"><button class="small-btn copy-title" data-title="Street Motion">Başlığı Kopyala</button><a class="small-btn" href="#sosyal">Paylaşım alanı</a></div></div></article>
+      <article class="card"><div class="thumb"><span class="pill">NIGHT EDIT</span><span class="vehicle" aria-hidden="true">🚙</span></div><div class="card-body"><h3>After Dark</h3><p>Minimal tasarım, karanlık fon ve parlak detaylar.</p><div class="card-actions"><button class="small-btn copy-title" data-title="After Dark">Başlığı Kopyala</button><a class="small-btn" href="#sosyal">Paylaşım alanı</a></div></div></article>
+    </div>
+    <p class="gallery-note">Not: Bunlar örnek tasarım kartlarıdır; henüz gerçek video veya sosyal medya bağlantısı eklenmedi.</p>
+  </section>
+  <section class="wrap" id="ozellikler">
+    <div class="section-top"><div><div class="kicker">NEDEN PRIME_CPM?</div><h2>Tarzın Detaylarda Saklı</h2><p class="sub">Mobil ekrana uyumlu, hızlı ve araba editlerine göre tasarlanmış bir vitrin.</p></div></div>
+    <div class="feature-band">
+      <div class="feature"><div class="feature-icon">⚡</div><h3>Akıcı Tasarım</h3><p>Telefon, tablet ve bilgisayarda uyumlu görünüm; kolay gezinme ve yumuşak geçişler.</p></div>
+      <div class="feature"><div class="feature-icon">🎞️</div><h3>Edit Galerisi</h3><p>BMW, spor otomobil ve gece sürüşü editlerini sergilemek için düzenlenebilir kartlar.</p></div>
+      <div class="feature"><div class="feature-icon">🔗</div><h3>Sosyal Bağlantılar</h3><p>Instagram, YouTube veya TikTok profilini ekleyerek ziyaretçileri hesabına yönlendir.</p></div>
+      <div class="feature"><div class="feature-icon">🌌</div><h3>Neon Atmosfer</h3><p>Siyah zemin, mavi ışık efektleri ve sportif tipografiyle kendine özgü bir stil.</p></div>
+    </div>
+  </section>
+  <section class="wrap" id="sosyal">
+    <div class="social-panel">
+      <div><div class="kicker">BAĞLANTIDA KAL</div><h2>Yol burada bitmiyor.</h2><p>Instagram, TikTok veya YouTube adreslerini ekleyip topluluğunu buraya yönlendir.</p></div>
+      <div class="social-links"><button class="btn btn-primary" id="instagramBtn">Instagram ekle</button><button class="btn btn-secondary" id="youtubeBtn">YouTube ekle</button><button class="btn btn-secondary" id="tiktokBtn">TikTok ekle</button></div>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap foot"><a class="logo" href="#anasayfa">PRIME<span>_CPM</span></a><span>© <span id="year"></span> PRIME_CPM · Otomobil edit kültürü.</span><a href="#anasayfa">Başa dön ↑</a></div></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+const menuBtn=document.getElementById('menuBtn');
+const navLinks=document.getElementById('navLinks');
+menuBtn.addEventListener('click',()=>{const open=navLinks.classList.toggle('open');menuBtn.setAttribute('aria-expanded',String(open));menuBtn.textContent=open?'✕ Kapat':'☰ Menü';});
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{navLinks.classList.remove('open');menuBtn.setAttribute('aria-expanded','false');menuBtn.textContent='☰ Menü';}));
+document.getElementById('year').textContent=new Date().getFullYear();
+let toastTimer;
+function toast(message){const el=document.getElementById('toast');el.textContent=message;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2600);}
+document.querySelectorAll('.copy-title').forEach(btn=>btn.addEventListener('click',async()=>{const title=btn.dataset.title;try{await navigator.clipboard.writeText(title);toast('Kopyalandı: '+title);}catch(e){toast('Başlık: '+title);}}));
+function askLink(platform){const raw=prompt(platform+' profil bağlantını yaz (https:// ile başlayan adres):');if(raw===null)return;const url=raw.trim();if(!/^https:\/\/[^\s]+$/i.test(url)){toast('Lütfen https:// ile başlayan geçerli bir bağlantı gir.');return;}const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.click();toast(platform+' bağlantısı açılıyor.');}
+document.getElementById('instagramBtn').addEventListener('click',()=>askLink('Instagram'));
+document.getElementById('youtubeBtn').addEventListener('click',()=>askLink('YouTube'));
+document.getElementById('tiktokBtn').addEventListener('click',()=>askLink('TikTok'));
+</script>
+</body>
+</html>
